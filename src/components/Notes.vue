@@ -6,8 +6,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
-
+import api from '../api/api'
 export default {
     name: 'Notes',
     props: ['folderId'],
@@ -15,7 +14,7 @@ export default {
         notes: []
     }),
     async created () {
-        const {data} = await axios.get(`/api/notes/list?folderId=${this.folderId}`);
+        const {data} = await api.note.list(this.folderId);
         this.notes = data;
     }
 };

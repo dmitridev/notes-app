@@ -11,7 +11,9 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <v-navigation-drawer>
+
+    <v-layout>
+    <v-navigation-drawer class="flex xs4" absolute>
       <v-list>
         <v-list-item>
           <v-list-item @click="newFolder = true">
@@ -25,9 +27,12 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+    <Notes :folderId="null"/>
+    </v-layout>
   </div>
 </template>
 <script>
+import Notes from "../components/Notes";
 import api from "../api/api";
 export default {
   name: "Folders",
@@ -37,6 +42,9 @@ export default {
     current: "",
     newFolder: false,
   }),
+  components:{
+    Notes
+  },
   async created() {
     const { data } = await api.folder.list();
     const notes = await api.note.list();

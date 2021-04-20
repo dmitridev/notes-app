@@ -2,6 +2,10 @@
   <v-app>
     <v-main>
       <router-view />
+
+      <v-dialog v-model="create">
+        <Note :create="create"/>
+      </v-dialog>
       <v-bottom-navigation v-model="current" fixed>
         <v-btn height="100%">
           <span>Папки</span>
@@ -11,7 +15,7 @@
           <span>Списки</span>
           <v-icon> mdi-text-box </v-icon>
         </v-btn>
-        <v-btn height="100%">
+        <v-btn @click="create = true" height="100%">
           <span>Создать</span>
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
@@ -25,15 +29,21 @@
 </template>
 
 <script>
+import Note from '../src/components/Note'
 export default {
   name: "App",
+  components:{
+    Note
+  },
 
   data: () => ({
     items: {
       folders: {
         list: { icon: "mdi-document" },
       },
+      
     },
+    create: false,
     current: "",
   }),
 };
