@@ -12,6 +12,6 @@ export default {
         list: async () => await axios.get('/api/folders'),
         create: async (name) => {
             console.log(name)
-            return await axios.post(`/api/folders/${name}`)}
+            return axios.post(`/api/folders/${name}`);}
     }
 }

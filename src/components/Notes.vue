@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card v-for="({ title }, i) in notes" :key="i"> 
+    <v-card v-for="({ title }, i) in notes" :key="i" class="elevation-1 mb-1">
         <v-card-title>{{title}}</v-card-title>
     </v-card>
   </div>
