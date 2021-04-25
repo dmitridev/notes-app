@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "frontend": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "backend": "node index.js"
@@ -11,7 +11,10 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "express": "^4.17.1",
+    "marked": "^2.0.3",
+    "monaco-editor": "^0.23.0",
     "mongodb": "^3.6.6",
+    "quill-editor": "0.0.1",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0"

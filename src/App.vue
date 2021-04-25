@@ -2,7 +2,6 @@
   <v-app>
     <v-main>
       <router-view />
-
       <v-dialog v-model="create">
         <Note :create="create"/>
       </v-dialog>
@@ -11,10 +10,11 @@
           <span>Папки</span>
           <v-icon>mdi-folder</v-icon>
         </v-btn>
+        <!--
         <v-btn height="100%">
           <span>Списки</span>
           <v-icon> mdi-text-box </v-icon>
-        </v-btn>
+        </v-btn>-->
         <v-btn @click="create = true" height="100%">
           <span>Создать</span>
           <v-icon>mdi-pencil</v-icon>

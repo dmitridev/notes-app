@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--
     <v-dialog v-model="newFolder" width="600px">
       <v-card>
         <v-card-title>Создать папку</v-card-title>
@@ -11,9 +12,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-    <v-layout>
-      <v-list class="flex xs4">
+-->
+      <!-- <v-list class="flex xs4">
 
         <v-list-item @click="newFolder = true">
           <v-icon>mdi-folder-plus-outline</v-icon>
@@ -28,10 +28,10 @@
         </v-list-item>
 
       </v-list>
-      <div class="flex xs8">
+      -->
+      <div>
         <Notes :folderId="null"/>
       </div>
-    </v-layout>
   </div>
 </template>
 <script>

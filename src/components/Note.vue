@@ -1,5 +1,9 @@
 <template>
   <v-card>
+    <template v-if="read">
+      <v-card-title>{{object.title}}</v-card-title>
+    </template>
+
     <template v-if="create">
       <v-card-title>
         <v-text-field v-model="object.title"/>
@@ -11,7 +15,6 @@
         <v-btn @click="createNote"></v-btn>
       </v-card-actions>
     </template>
-
 
     <template v-if="!create && state === EDITOR_STATE.view">
       <v-card-title>{{ object.title }}</v-card-title>
@@ -27,34 +30,31 @@
     </template>
 
     <template v-if="!create && state === EDITOR_STATE.edit">
-      <v-card-title>
-        <v-text-field v-model="object.title"/>
-      </v-card-title>
-      <v-card-text>
-        <v-text-field v-model="object.text"/>
-      </v-card-text>
-      <v-card-actions class="justify-end">
-        <v-btn text icon @click="save">
-          <v-icon>mdi-content-save</v-icon>
-        </v-btn>
-        <v-btn></v-btn>
-      </v-card-actions>
+      <edit-note :object="object" @close="state=EDITOR_STATE.view" @save="save"/>
     </template>
   </v-card>
 </template>
 
 <script>
   import api from '../api/api'
+  import editNote from '../components/EditNote';
 
   export default {
     name: "Note",
-    props: ['item', 'create'],
+    props: ['item', 'create', 'read'],
+    components: {
+      editNote
+    },
     data: () => ({
       state: 0,
       object: {},
-      EDITOR_STATE: Object.freeze({view: 0, edit: 1}),
+      EDITOR_STATE: Object.freeze({read: -1, view: 0, edit: 1}),
     }),
     async mounted() {
+      if (!this.create)
+        this.create = false;
+      this.state = this.EDITOR_STATE.view;
+      console.log(this.item);
       if (this.item) {
         this.object.title = this.item.title;
         this.object.text = this.item.text;
@@ -69,6 +69,15 @@
         } catch (e) {
           console.err(e);
         }
+      },
+      del() {
+
+      },
+      edit() {
+        this.state = this.EDITOR_STATE.edit;
+      },
+      async save(object) {
+        await api.note.update(object._id, object);
       }
     }
   };
