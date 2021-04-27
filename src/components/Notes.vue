@@ -5,15 +5,15 @@
           :item="obj"
           @click="openNote = true"
     />
+    <v-divider></v-divider>
   </div>
 </template>
 <script>
-  import api from '../api/api'
   import Note from '../components/Note';
 
   export default {
     name: 'Notes',
-    props: ['folderId'],
+    props: ['folderId','notes'],
     components: {
       Note
     },
@@ -21,10 +21,6 @@
       notes: [],
       openNote: false
     }),
-    async created() {
-      const {data} = await api.note.list(this.folderId);
-      this.notes = data;
-    }
   };
 </script>
 

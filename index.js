@@ -6,6 +6,8 @@ const express = require('express');
 const app = express();
 const port = 8080;
 
+const connection = "mongodb://localhost:27017"
+
 const mongoOptions = {
   useUnifiedTopology: true
 };
@@ -13,7 +15,7 @@ const mongoOptions = {
 app.use(bodyParser.json());
 app.get("/api/notes/list", (req, res) => {
   let folder = req.query.folder;
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     let collection = null;
@@ -29,7 +31,7 @@ app.get("/api/notes/list", (req, res) => {
 app.put('/api/notes/:id', (req, res) => {
   const body = req.body
   const id = req.params.id;
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     delete body._id
@@ -44,7 +46,7 @@ app.put('/api/notes/:id', (req, res) => {
 app.get("/api/notes/:id", (req, res) => {
   const id = req.params.id;
 
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const object = await db.collection('notes').findOne({ _id: new objectId(id) })
@@ -53,7 +55,7 @@ app.get("/api/notes/:id", (req, res) => {
 })
 
 app.post("/api/notes/", (req, res) => {
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const collection = db.collection('notes');
@@ -64,7 +66,7 @@ app.post("/api/notes/", (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
   const id = req.params.id;
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect((err) => {
     const db = client.db('regulars');
     const collection = db.collection('notes');
@@ -74,7 +76,7 @@ app.delete('/api/notes/:id', (req, res) => {
 })
 
 app.get('/api/notes/count', (req, res) => {
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const collection = db.collection('notes');
@@ -84,7 +86,7 @@ app.get('/api/notes/count', (req, res) => {
 })
 
 app.get('/api/folders/', (req, res) => {
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const result = await db.collection('folders').find({}).toArray();
@@ -93,7 +95,7 @@ app.get('/api/folders/', (req, res) => {
 })
 app.post('/api/folders/:name', (req, res) => {
   const name = req.params.name;
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const result = await db.collection('folders').insertOne({ name: name })
@@ -103,7 +105,7 @@ app.post('/api/folders/:name', (req, res) => {
 
 app.delete('/api/folders/:name', (req, res) => {
   const name = req.params.name;
-  const client = new MongoClient("mongodb://localhost:27017", mongoOptions);
+  const client = new MongoClient(connection, mongoOptions);
   client.connect(async (err) => {
     const db = client.db('regulars');
     const result = await db.collection('folders').deleteOne({ name: name });

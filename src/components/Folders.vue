@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--
     <v-dialog v-model="newFolder" width="600px">
       <v-card>
         <v-card-title>Создать папку</v-card-title>
@@ -12,9 +11,7 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
--->
-      <!-- <v-list class="flex xs4">
-
+       <v-list>
         <v-list-item @click="newFolder = true">
           <v-icon>mdi-folder-plus-outline</v-icon>
           Создать папку
@@ -28,14 +25,9 @@
         </v-list-item>
 
       </v-list>
-      -->
-      <div>
-        <Notes :folderId="null"/>
-      </div>
   </div>
 </template>
 <script>
-  import Notes from "../components/Notes";
   import api from "../api/api";
 
   export default {
@@ -47,9 +39,6 @@
       newFolder: false,
       navigation: true,
     }),
-    components: {
-      Notes
-    },
     async created() {
       const {data} = await api.folder.list();
       const notes = await api.note.list();
