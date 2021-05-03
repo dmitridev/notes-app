@@ -1,17 +1,19 @@
 <template>
   <div>
+
     <v-layout>
       <div class="flex xl0 xs">
         <Notes :notes="notes"/>
       </div>
     </v-layout>
     <v-layout>
-    <Footer class="flex xs12 lg12" @create="createNote" @search="search"/>
+      <Footer class="flex xs12" @create="createNote" @search="search"/>
     </v-layout>
 
     <v-dialog v-model="create" fullscreen>
       <Note :create="create" @close="create=false" @afterCreate="updateNotes"/>
     </v-dialog>
+
   </div>
 </template>
 
@@ -20,10 +22,11 @@ import api from '../api/api'
 import Notes from './Notes'
 import Note from './Note'
 import Footer from './Footer'
+
 export default {
   name: "regulars",
   components:{
-    Notes,Footer,Note
+    Notes, Footer, Note
   },
   data: () => ({
     folder: null,

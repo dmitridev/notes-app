@@ -4,6 +4,8 @@
           :key="i"
           :item="obj"
           @click="openNote = true"
+          @delete="del"
+          @save="save"
     />
     <v-divider></v-divider>
   </div>
@@ -18,9 +20,18 @@
       Note
     },
     data: () => ({
-      notes: [],
       openNote: false
     }),
+    methods:{
+      del(id){
+        this.notes = this.notes.filter(this._id == id);
+      },
+      save(object){
+        let i = this.notes.findIndex(id => object._id == id);
+        this.notes[i] = object;
+      }
+    }
+    
   };
 </script>
 

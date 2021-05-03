@@ -41,9 +41,6 @@
     }),
     async created() {
       const {data} = await api.folder.list();
-      const notes = await api.note.list();
-      console.log(notes);
-      console.log(data);
       this.folders = data;
     },
     methods: {

@@ -1,15 +1,31 @@
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const objectId = require("mongodb").ObjectId;
+require('dotenv').config();
 
 const express = require('express');
 const app = express();
 const port = 8080;
 
-const connection = "mongodb://localhost:27017"
+const connection = getConnection();
+function getConnection(){
+  const user = process.env.DB_USER;
+  const db = process.env.DB_NAME;
+  const connection = process.env.DB_CONNECTION;
+  const password = process.env.DB_PASSWORD;
+  const local = process.env.local;
+  if(local){
+    return `mongodb://localhost:27017`
+  }
+  const conn = `mongodb+srv://${user}:${password}@${connection}/${db}?retryWrites=true&w=majority`
+  console.log(conn);
+  return conn;
+}
+
 
 const mongoOptions = {
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useNewUrlParser: true
 };
 
 app.use(bodyParser.json());
