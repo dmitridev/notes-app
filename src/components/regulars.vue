@@ -6,6 +6,7 @@
         <Notes :notes="notes"/>
       </div>
     </v-layout>
+    
     <v-layout>
       <Footer class="flex xs12" @create="createNote" @search="search"/>
     </v-layout>
